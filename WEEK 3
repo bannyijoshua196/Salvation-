@@ -1,0 +1,64 @@
+class AttendanceSession {
+private:
+    string courseCode;
+    string date;
+    string startTime;
+    int duration;
+
+    vector<string> studentNames;
+    vector<string> attendanceStatus;
+
+public:
+    AttendanceSession(string code, string d, string time, int dur) {
+        courseCode = code;
+        date = d;
+        startTime = time;
+        duration = dur;
+    }
+
+    void addStudent(string name) {
+        studentNames.push_back(name);
+        attendanceStatus.push_back("Not Marked");
+    }
+
+    void markAttendance() {
+        for (int i = 0; i < studentNames.size(); i++) {
+            int choice;
+            cout << "\nMark attendance for " << studentNames[i] << endl;
+            cout << "1. Present\n2. Absent\n3. Late\nChoice: ";
+            cin >> choice;
+
+            if (choice == 1)
+                attendanceStatus[i] = "Present";
+            else if (choice == 2)
+                attendanceStatus[i] = "Absent";
+            else if (choice == 3)
+                attendanceStatus[i] = "Late";
+            else
+                attendanceStatus[i] = "Absent";
+        }
+    }
+};
+
+void generateReport() {
+    int present = 0, absent = 0, late = 0;
+
+    cout << "\n--- Attendance Report ---\n";
+
+    for (int i = 0; i < studentNames.size(); i++) {
+        cout << studentNames[i] << " - "
+             << attendanceStatus[i] << endl;
+
+        if (attendanceStatus[i] == "Present")
+            present++;
+        else if (attendanceStatus[i] == "Absent")
+            absent++;
+        else if (attendanceStatus[i] == "Late")
+            late++;
+    }
+
+    cout << "\n--- Summary ---\n";
+    cout << "Present: " << present << endl;
+    cout << "Absent: " << absent << endl;
+    cout << "Late: " << late << endl;
+}
